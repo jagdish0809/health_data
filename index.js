@@ -35,117 +35,17 @@ const healthdata = new mongoose.Schema({
 
 const Healthdata = mongoose.model("Healthdata", healthdata);
 
-// const data = [
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-//   {
-//     FirstName: "John",
-//     LastName: "Doe",
-//     Age: "25",
-//     Gender: "male",
-//     Height: "5.6",
-//     Weight: "70",
-//     Bmi: "20",
-//     OxygenLevel: "98",
-//     HeartRate: "80",
-//     Temperature: "98",
-//     ECGStatus: "250",
-//   },
-// ];
-
-// for (const dataItem of data) {
-//   const newData = new Healthdata({
-//     Firstname: dataItem.FirstName,
-//     Lastname: dataItem.LastName,
-//     Age: dataItem.Age,
-//     Gender: dataItem.Gender,
-//     Height: dataItem.Height,
-//     Weight: dataItem.Weight,
-//     BMI: dataItem.Bmi,
-//     Oxygen: dataItem.OxygenLevel,
-//     Heartrate: dataItem.HeartRate,
-//     Temperature: dataItem.Temperature,
-//     ECG: dataItem.ECGStatus,
-//   });
-//   newData.save();
-//   console.log("Data saved successfully:", newData);
-// }
+app.post("/api/patient", async(req, res) =>{
+    try{
+        const data = req.body;
+        console.log(data)
+        const newHealthdata = new Healthdata(data);
+        await newHealthdata.save();
+        res.json(newHealthdata);
+    }catch(err){
+        console.log(err);
+    }
+})
 
 
 app.get("/api/patient", async (req, res) => {
