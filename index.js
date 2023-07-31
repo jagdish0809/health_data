@@ -30,22 +30,32 @@ const healthdata = new mongoose.Schema({
     Oxygen: Number,
     Heartrate: Number,
     Temperature: Number,
-    ECG: Number,
+    ECG: String,
 });
 
 const Healthdata = mongoose.model("Healthdata", healthdata);
 
-app.post("/api/patient", async(req, res) =>{
-    try{
-        const data = req.body;
-        console.log(data)
-        const newHealthdata = new Healthdata(data);
-        await newHealthdata.save();
-        res.json(newHealthdata);
-    }catch(err){
-        console.log(err);
-    }
-})
+app.post("/update", async (req, res) => {
+  try {
+    const data = {
+      Firstname: req.query.firstname,
+      Lastname: req.query.lastname,
+      Age: parseFloat(req.query.age),
+      Gender: req.query.gender,
+      Height: parseFloat(req.query.height),
+      Weight: parseFloat(req.query.weight),
+      BMI: parseFloat(req.query.bmi),
+      Oxygen: parseFloat(req.query.oxygen),
+      Heartrate: parseFloat(req.query.heartrate),
+      Temperature: parseFloat(req.query.temperature),
+      ECG: req.query.ecg
+    };
+    await Healthdata.create(data);
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 
 app.get("/api/patient", async (req, res) => {
