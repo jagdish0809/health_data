@@ -35,7 +35,7 @@ const healthdata = new mongoose.Schema({
 
 const Healthdata = mongoose.model("Healthdata", healthdata);
 
-app.post("/update", async (req, res) => {
+app.get("/update", async (req, res) => {
   try {
     const data = {
       Firstname: req.query.firstname,

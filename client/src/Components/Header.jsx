@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLoggedIn, handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showEditForm, setShowEditForm] = useState(false);
+  const closeForm = useRef(null);
+  const Navigation = useNavigate();
 
   const handleLoginFormSubmit = (e) => {
     e.preventDefault();
@@ -16,27 +19,42 @@ const Header = ({ isLoggedIn, handleLogin }) => {
 
   const handleEditClick = () => {
     setShowEditForm(true);
-  }
+  };
 
-    const logouthandle = () => {
+  const logouthandle = () => {
     localStorage.setItem("loggedIn", false);
-    window.location.reload();
-    }
+    Navigation("/")
+    // window.location.reload();
+  };
+
+  // useEffect(() => {
+  //   const closeFormHandler = (event) => {
+  //     if (closeForm.current && !closeForm.current.contains(event.target)) {
+  //       setShowEditForm(false);
+  //       console.log("outside");
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", closeFormHandler);
+  //   return () => {
+  //     document.removeEventListener("mousedown", closeFormHandler);
+  //   };
+  // }, []);
   return (
     <div className="app__login">
-      {isLoggedIn ? (
+      {/* {isLoggedIn ? ( */}
+          <h1>HEALTH CARE DEVICE</h1>
         <div className="app__login_div">
           <h2 onClick={logouthandle}>Logout</h2>
         </div>
-      ) : (
-        <div className="app__login_div">
-          <h2 onClick={handleEditClick}>Login</h2>
-        </div>
-      )}
-      {showEditForm && (
+
+      {/* {showEditForm && (
         <div className="edit-form overlay">
           <div className="edit-form-div">
-            <form className="app__login_div" onSubmit={handleLoginFormSubmit}>
+            <form
+              className=""
+              onSubmit={handleLoginFormSubmit}
+              ref={closeForm}
+            >
               <h2>Login</h2>
               <input
                 type="text"
@@ -50,11 +68,13 @@ const Header = ({ isLoggedIn, handleLogin }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button className="form-btn" type="submit">Login</button>
+              <button className="form-btn" type="submit">
+                Login
+              </button>
             </form>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
